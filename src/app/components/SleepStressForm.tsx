@@ -67,6 +67,7 @@ const SleepStressForm: React.FC<ISleepStressForm> = ({ setSonoData }) => {
       tempo_atividade_fisica: Number(tempoAtvFisica),
     });
     const sonoData: sonoData = {
+      id_cliente: 1,
       data_sono: `${diaSono}/${mesSono}/${currentDate.getFullYear()}`,
       duracao_sono: Number(horasDormidas),
       nivel_estresse: nivel_estresse,
