@@ -2,9 +2,11 @@
 import { useRouter } from "next/navigation";
 import LinkButton from "../components/LinkButton";
 import LogoHT from "../components/LogoHT";
+import useClienteStore from "../stores/useClienteStore";
 
 export default function Menu() {
   const router = useRouter();
+  const { logout } = useClienteStore();
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
@@ -31,6 +33,15 @@ export default function Menu() {
           }}
         >
           {"Seus Sonos"}
+        </LinkButton>
+        <LinkButton
+          onclick={() => {
+            logout();
+            router.push("/");
+          }}
+          dark
+        >
+          {"Logout"}
         </LinkButton>
       </div>
     </main>

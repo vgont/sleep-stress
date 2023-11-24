@@ -10,6 +10,7 @@ const NavBar: React.FC<{ atualPage: string }> = ({ atualPage }) => {
         <Link
           href={`/${page}`}
           className="hover:text-gray-500 hover:border-gray-500 border-b-2 mx-10 mb-16"
+          key={page}
         >
           {page}
         </Link>

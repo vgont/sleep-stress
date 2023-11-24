@@ -53,13 +53,11 @@ const CadastroForm: React.FC = () => {
   };
   const handleCadastro = async () => {
     const clienteData: cliente = {
-      altura_cliente: null,
-      classificacao_bmi: null,
       data_nasc_cliente: `${diaNasc}/${mesNasc}/${anoNasc}`,
       nome_cliente: nome as string,
-      peso_cliente: null,
       senha_cliente: senha as string,
       usuario_cliente: usuario as string,
+      id_cliente: 0,
     };
 
     await PostCliente(clienteData);

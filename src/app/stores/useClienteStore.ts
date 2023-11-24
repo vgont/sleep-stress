@@ -6,6 +6,7 @@ interface ICliente {
   dataNasc: string;
   setIdCliente: (id: number) => void;
   setDataNasc: (data: string) => void;
+  logout: () => void;
 }
 
 const useClienteStore = create(
@@ -15,6 +16,7 @@ const useClienteStore = create(
       dataNasc: "",
       setIdCliente: (id) => set({ idCliente: id }),
       setDataNasc: (data) => set({ dataNasc: data }),
+      logout: () => set({ dataNasc: "", idCliente: 0 }),
     }),
     { name: "cliente" }
   )
