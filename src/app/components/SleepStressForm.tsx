@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { qualificarSleepStress } from "../api/apiUtils";
 import { sonoData } from "../types/types";
+import useClienteStore from "../stores/useClienteStore";
 
 interface ISleepStressForm {
   setSonoData: (data: sonoData) => void;
@@ -18,6 +19,13 @@ const SleepStressForm: React.FC<ISleepStressForm> = ({ setSonoData }) => {
   const [mesSono, setMesSono] = useState<string>(
     String(currentDate.getMonth() + 1)
   );
+  const { idCliente, dataNasc } = useClienteStore();
+
+  const birthDate = () => {
+    const parts = dataNasc.split("/");
+    const [day, month, year] = parts;
+    return new Date(`${year}-${month}-${day}`);
+  };
 
   useEffect(() => {
     if (Number(mesSono) === 2 && Number(diaSono) > 28) {
@@ -62,12 +70,12 @@ const SleepStressForm: React.FC<ISleepStressForm> = ({ setSonoData }) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const { nivel_estresse, qualidade_sono } = await qualificarSleepStress({
-      idade: 18,
+      idade: currentDate.getFullYear() - birthDate().getFullYear(),
       duracao_sono: Number(horasDormidas),
       tempo_atividade_fisica: Number(tempoAtvFisica),
     });
     const sonoData: sonoData = {
-      id_cliente: 1,
+      id_cliente: idCliente,
       data_sono: `${diaSono}/${mesSono}/${currentDate.getFullYear()}`,
       duracao_sono: Number(horasDormidas),
       nivel_estresse: nivel_estresse,

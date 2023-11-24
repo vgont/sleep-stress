@@ -1,11 +1,37 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { GetClienteByUser, GetIdClienteByUser } from "../api/apiUtils";
+import { useEffect, useState } from "react";
+import useClienteStore from "../stores/useClienteStore";
 
 const LoginForm: React.FC = () => {
+  const [usuario, setUsuario] = useState("");
+  const [senha, setSenha] = useState("");
+  const [isLoginDisabled, setIsLoginDisabled] = useState(true);
+  const { setIdCliente, setDataNasc } = useClienteStore();
+
+  useEffect(() => {
+    if (usuario && senha) {
+      setIsLoginDisabled(false);
+    } else {
+      setIsLoginDisabled(true);
+    }
+  }, [usuario, senha]);
+
   const router = useRouter();
-  const handleLogin = () => {
-    router.push("/menu");
+  const handleLogin = async () => {
+    if (usuario && senha) {
+      const response = await GetClienteByUser({ usuario, senha });
+      if (response) {
+        const clienteData = await GetIdClienteByUser(usuario);
+        if (clienteData) {
+          setIdCliente(clienteData.id_cliente);
+          setDataNasc(clienteData.data_nasc);
+          router.push("/menu");
+        }
+      }
+    }
   };
   return (
     <div className="w-full max-w-xs mx-auto mt-20">
@@ -22,6 +48,8 @@ const LoginForm: React.FC = () => {
             id="username"
             type="text"
             placeholder="Username"
+            onChange={(e) => setUsuario(e.target.value)}
+            value={usuario}
           />
         </div>
         <div className="mb-6">
@@ -36,13 +64,18 @@ const LoginForm: React.FC = () => {
             id="password"
             type="password"
             placeholder="******************"
+            onChange={(e) => setSenha(e.target.value)}
+            value={senha}
           />
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className={`${
+              isLoginDisabled ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-700"
+            } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
             type="button"
             onClick={handleLogin}
+            disabled={isLoginDisabled}
           >
             Logar
           </button>
