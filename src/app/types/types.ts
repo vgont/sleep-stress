@@ -17,3 +17,18 @@ export type sonoData = {
   qualidade_sono: string;
   data_sono: string;
 };
+
+export type cliente = {
+  nome_cliente: string;
+  data_nasc_cliente: string;
+  usuario_cliente: string;
+  senha_cliente: string;
+  altura_cliente: number | null;
+  peso_cliente: number | null;
+  classificacao_bmi: string | null;
+};
+
+export type login = {
+  usuario: string;
+  senha: string;
+};
