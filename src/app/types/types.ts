@@ -30,3 +30,12 @@ export type login = {
   usuario: string;
   senha: string;
 };
+
+export type infoCliente = {
+  tempo_atividade_fisica: number;
+  data_sono: string;
+  duracao_sono: number;
+  qualidade_sono: string;
+  nivel_estresse: string;
+  id_sono: number;
+};

@@ -148,3 +148,17 @@ export async function putBmiCliente(clienteData: {
   });
   return response.json();
 }
+
+export async function selectSonosByIdCliente(id_cliente: number) {
+  const response = await fetch(`http://localhost:8080/sonos/${id_cliente}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function deleteSonoById(id_sono: number) {
+  const response = await fetch(`http://localhost:8080/sonos/${id_sono}`, {
+    method: "DELETE",
+  });
+  const result = await response.json();
+  return result;
+}
