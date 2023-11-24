@@ -19,13 +19,11 @@ export type sonoData = {
 };
 
 export type cliente = {
+  id_cliente: number;
   nome_cliente: string;
   data_nasc_cliente: string;
   usuario_cliente: string;
   senha_cliente: string;
-  altura_cliente: number | null;
-  peso_cliente: number | null;
-  classificacao_bmi: string | null;
 };
 
 export type login = {
