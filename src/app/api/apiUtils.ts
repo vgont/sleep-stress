@@ -1,5 +1,5 @@
-import { cliente, login, sonoData } from "./../types/types";
 import { AIFeatures, AITargets } from "../types/types";
+import { cliente, login, sonoData } from "./../types/types";
 
 export async function qualificarSleepStress(data: AIFeatures) {
   const apiUrl = "http://localhost:8080/qualificar";
@@ -101,6 +101,50 @@ export async function PostSono(sonoData: sonoData) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(sonoData),
+  });
+  return response.json();
+}
+
+export async function CalcularBmi(altura: number, peso: number) {
+  const url = `https://bmi-calculator6.p.rapidapi.com/bmi?height=${altura}&weight=${peso}&system=metric`;
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "2d7ba7c7eemshe31d159b6783f94p182215jsn02bd4da8e2ad",
+      "X-RapidAPI-Host": "bmi-calculator6.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const result: { Class: string } = await response.json();
+    const bmi = result.Class;
+
+    if (bmi === "Underweight") return "abaixo do peso";
+    if (bmi === "Overweight") return "sobrepeso";
+    if (bmi === "Obese") return "obeso";
+    if (bmi === "Extremely obese") return "extremamente obeso";
+    if (bmi === "Morbidly obese") return "obeso morbido";
+    return "normal";
+  } catch (error) {
+    console.error(error);
+    return "error";
+  }
+}
+
+export async function putBmiCliente(clienteData: {
+  altura_cliente: number;
+  classificacao_bmi: string;
+  id_cliente: number;
+  peso_cliente: number;
+}) {
+  const apiUrl = "http://localhost:8080/bmi";
+  const response = await fetch(apiUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(clienteData),
   });
   return response.json();
 }
