@@ -18,7 +18,13 @@ export default function Menu() {
         >
           {"SleepStress"}
         </LinkButton>
-        <LinkButton onclick={() => {}}>{"Calcular BMI"}</LinkButton>
+        <LinkButton
+          onclick={() => {
+            router.push("/bmi");
+          }}
+        >
+          {"Calcular BMI"}
+        </LinkButton>
       </div>
     </main>
   );
