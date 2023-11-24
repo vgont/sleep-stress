@@ -8,6 +8,7 @@ import SleepStressResults from "../components/SleepStressResults";
 import LinkButton from "../components/LinkButton";
 import { PostSono } from "../api/apiUtils";
 import { useRouter } from "next/navigation";
+import NavBar from "../components/NavBar";
 
 export default function SleepStress() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function SleepStress() {
     <main className="flex min-h-screen flex-col items-center p-24 pt-10 pr-10">
       <div className="self-end">
         <LogoHT />
+        <NavBar atualPage="sleepStress" />
       </div>
       <Title>{"SleepStress"}</Title>
       {!resultadoSono ? (

@@ -25,6 +25,13 @@ export default function Menu() {
         >
           {"Calcular BMI"}
         </LinkButton>
+        <LinkButton
+          onclick={() => {
+            router.push("/sonos");
+          }}
+        >
+          {"Seus Sonos"}
+        </LinkButton>
       </div>
     </main>
   );
