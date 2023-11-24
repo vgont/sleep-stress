@@ -15,7 +15,7 @@ export default function SleepStress() {
 
   const handleRegister = async () => {
     if (resultadoSono) {
-      await PostSono({ ...resultadoSono, id_cliente: 1 });
+      await PostSono(resultadoSono);
       router.push("/sonos");
     }
   };
